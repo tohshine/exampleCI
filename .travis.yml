@@ -1,0 +1,22 @@
+language: node_js
+node_js:
+  -"8"
+dist: trusty
+env:
+ - PORT = 3000
+cache:
+  directories:
+     - node_modules
+     - client/node_modules
+install:
+  - npm install
+  - npm run heroku-postbuild
+script:
+  "yes"
+after_success:
+  - bash ./deploy.sh
+before_install:
+   - openssl aes-256-cbc -K $encrypted_0ddd2445e49f_key -iv $encrypted_0ddd2445e49f_iv
+        -in travis_rsa.enc -out travis_rsa -d
+   - chmod 600 travis_rsa
+   - mv travis_rsa ~/.ssh/id_rsa     
